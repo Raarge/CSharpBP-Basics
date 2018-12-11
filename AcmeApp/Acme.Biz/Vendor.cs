@@ -1,9 +1,4 @@
 ﻿using Acme.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Acme.Biz
 {
@@ -23,7 +18,7 @@ namespace Acme.Biz
         public string SendWelcomeEmail(string message)
         {
             var emailService = new EmailService();
-            var subject = "Hello" + this.CompanyName;
+            var subject = ("Hello " + this.CompanyName).Trim();
             var confirmation = emailService.SendMessage(subject,
                                                         message, 
                                                         this.Email);
