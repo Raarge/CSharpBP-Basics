@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Acme.Common
+﻿namespace Acme.Common
 {
     /// <summary>
     /// Provides services to send email.
@@ -24,8 +18,7 @@ namespace Acme.Common
             // Code to send an email
 
             var confirmation = "Message sent: " + subject;
-            var loggingService = new LoggingService();
-            loggingService.LogAction(confirmation);
+            LoggingService.LogAction(confirmation);
             return confirmation;
         }
 
