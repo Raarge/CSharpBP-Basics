@@ -8,7 +8,7 @@ namespace Acme.Biz.Tests
         [TestMethod()]
         public void SayHelloTest()
         {
-            //Arrange
+            //Arrange **** Uses the Setting Properties Technique of Object Initialization *****
             var currentProduct = new Product();
             currentProduct.ProductName = "Saw";
             currentProduct.ProductId = 1;
@@ -25,10 +25,30 @@ namespace Acme.Biz.Tests
         [TestMethod()]
         public void SayHello_ParameterizedConstructor()
         {
-            //Arrange
+            //Arrange  **** Uses the Parameterized Constructor for Object Initialization ****
             var currentProduct = new Product(1, "Saw", "15-inch steel blade hand saw");
             
             var expected = "Hello Saw (1): 15-inch steel blade hand saw";
+
+            //Act
+            var actual = currentProduct.SayHello();
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod()]
+        public void SayHello_ObjectInitializer()
+        {
+            //Arrange **** Uses straight up Object Initialization 
+            var currentProduct = new Product  //instead of () we are using { } with the properties given at runtime
+            {
+                ProductId = 1,
+                ProductName = "Saw",
+                Description = "15-inch steel blade hand saw"
+            };
+
+            var expected = "Hellow Saw (1): 15-inch steel blade hand saw";
 
             //Act
             var actual = currentProduct.SayHello();
