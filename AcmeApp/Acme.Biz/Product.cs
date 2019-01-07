@@ -9,12 +9,16 @@ namespace Acme.Biz
     /// </summary>
     public class Product
     {
+        public const double InchesPerMeter = 39.37;
+        public readonly decimal MinimumPrice;   // will set in constructor
+
         #region Constructors 
         public Product()
         {
             Console.WriteLine("Product instance created");
             //this.ProductVendor = new Vendor();   // added for always needed related objects for vendor
             // **** above code commented out for lazy loading when only sometimes need related objects
+            this.MinimumPrice = .96m;
         }
 
         public Product(int productId, string productName, string description) : this()
@@ -22,6 +26,10 @@ namespace Acme.Biz
             this.ProductId = productId;
             this.ProductName = productName;
             this.Description = description;
+            if (ProductName.StartsWith("Bulk"))
+            {
+                this.MinimumPrice = 9.99m;
+            }
 
             Console.WriteLine("Product instance has a name: " +
                               ProductName);
@@ -31,6 +39,15 @@ namespace Acme.Biz
 
 
         #region Properties
+        private DateTime? availabilityDate; 
+
+        public DateTime? AvailabilityDate 
+        {
+            get { return availabilityDate; }
+            set { availabilityDate = value; }
+        }
+
+
         private string productName;
 
         public string ProductName
@@ -89,7 +106,8 @@ namespace Acme.Biz
             var result = LogAction("saying hello");
             
             return "Hello " + ProductName + " (" +
-                   ProductId + "): " + Description;
+                   ProductId + "): " + Description +
+                " Available on: " + AvailabilityDate?.ToShortDateString();
         }
     }
 }
