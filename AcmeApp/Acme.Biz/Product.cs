@@ -52,8 +52,27 @@ namespace Acme.Biz
 
         public string ProductName
         {
-            get { return productName; }
-            set { productName = value; }
+            get
+            {
+                var formattedValue = productName?.Trim();  // use the trim method to remove the beginning and trailing spaces in product name.
+                return formattedValue;
+            }
+            set
+            {
+                if (value.Length < 3)
+                {
+                    ValidationMessage = "Product Name must be at least 3 characters";
+                }
+                else if (value.Length > 20)
+                {
+                    ValidationMessage = "Product Name cannot be more than 20 characters";
+                }
+                else
+                {
+                    productName = value;
+                }
+                
+            }
         }
         private string description;
 
@@ -89,6 +108,9 @@ namespace Acme.Biz
             }
             set { productVendor = value; }
         }
+
+        public string ValidationMessage { get; private set; }
+
         // **** Gives anything creating a product object will have access to the vendor associated with it ****
 
         #endregion
