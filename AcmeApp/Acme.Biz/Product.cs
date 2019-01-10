@@ -19,6 +19,7 @@ namespace Acme.Biz
             //this.ProductVendor = new Vendor();   // added for always needed related objects for vendor
             // **** above code commented out for lazy loading when only sometimes need related objects
             this.MinimumPrice = .96m;
+            this.Category = "Tools";
         }
 
         public Product(int productId, string productName, string description) : this()
@@ -108,6 +109,9 @@ namespace Acme.Biz
             }
             set { productVendor = value; }
         }
+
+        public string Category { get; set; }
+        public int SequenceNumber { get; set; } = 1;
 
         public string ValidationMessage { get; private set; }
 
