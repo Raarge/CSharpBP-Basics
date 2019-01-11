@@ -110,10 +110,12 @@ namespace Acme.Biz
             set { productVendor = value; }
         }
 
-        public string Category { get; set; }
+        internal string Category { get; set; }
         public int SequenceNumber { get; set; } = 1;
 
         public string ValidationMessage { get; private set; }
+
+        public string ProductCode => this.Category + "-" + this.SequenceNumber;
 
         // **** Gives anything creating a product object will have access to the vendor associated with it ****
 
