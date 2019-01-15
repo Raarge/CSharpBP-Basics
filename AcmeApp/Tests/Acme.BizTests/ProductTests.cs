@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Acme.Biz;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Acme.Biz.Tests
 {
@@ -28,7 +29,7 @@ namespace Acme.Biz.Tests
         {
             //Arrange  **** Uses the Parameterized Constructor for Object Initialization ****
             var currentProduct = new Product(1, "Saw", "15-inch steel blade hand saw");
-            
+
             var expected = "Hello Saw (1): 15-inch steel blade hand saw" + " Available on: ";
 
             //Act
@@ -161,7 +162,7 @@ namespace Acme.Biz.Tests
 
             string expected = null;
             string expectedMessage = "Product Name cannot be more than 20 characters";
-            
+
             // Act
             var actual = currentProduct.ProductName;
             var actualMessage = currentProduct.ValidationMessage;
@@ -262,6 +263,21 @@ namespace Acme.Biz.Tests
 
             //Act
             var actual = currentProduct.ProductCode;
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod()]
+        public void CalculateSuggestedPriceTest()
+        {
+            //Arrange
+            var currentProduct = new Product(1, "Saw", "");
+            currentProduct.Cost = 50m;
+            var expected = 55m;
+
+            //Act
+            var actual = currentProduct.CalculateSuggestedPrice(10m);
 
             //Assert
             Assert.AreEqual(expected, actual);

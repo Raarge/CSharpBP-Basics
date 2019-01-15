@@ -48,6 +48,8 @@ namespace Acme.Biz
             set { availabilityDate = value; }
         }
 
+        public decimal Cost { get; set; }
+
 
         private string productName;
 
@@ -121,6 +123,24 @@ namespace Acme.Biz
 
         #endregion
 
+    
+        ///<summary>
+        ///Calculates the suggested retail price
+        /// </summary>
+        /// <param name="markupPercent">Percent used to mark up the cost.</param>
+        /// <return></return>
+        public decimal CalculateSuggestedPrice(decimal markupPercent) =>     // Expression-Bodied Method C# 6
+            this.Cost + (this.Cost * markupPercent / 100);                   // removed the {}'s added the => (lambda operator)
+                                                                             // removed the return keyword before the this.Cost
+
+
+        // ***** Original Method before refactoring using Expression-Bodied Method from C# 6 *****
+        //public decimal CalculateSuggestedPrice(decimal markupPercent)       //******************
+        //{                                                                   //******************
+        //    return this.Cost + (this.Cost * markupPercent / 100);           //******************
+        //}                                                                   //******************
+        //****************************************************************************************
+
         public string SayHello()
         {
             // **** This object only needed here so is only instantiated in the method that needs it ****
@@ -137,5 +157,10 @@ namespace Acme.Biz
                    ProductId + "): " + Description +
                 " Available on: " + AvailabilityDate?.ToShortDateString();
         }
+
+        public override string ToString() => 
+            this.ProductName + " (" + this.productId + ")";  // using this with the Product Test Method to 
+        // refactored ToString() to an Expression-Bodied Method to reduce lines and clean up
+
     }
 }
