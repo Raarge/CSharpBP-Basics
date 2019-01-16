@@ -1,4 +1,5 @@
-﻿using Acme.Common;
+﻿using Acme.Biz;
+using Acme.Common;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
@@ -107,13 +108,29 @@ namespace Acme.Biz.Tests
         {
             //Arrange
             var vendor = new Vendor();
-            
+
             //Act
             var actual = vendor.PlaceOrder(null, 12);
 
             //Assert
             // Expected exception
 
+        }
+
+        [TestMethod()]
+        public void PlaceOrderTest1()
+        {
+            // Arrange
+            var vendor = new Vendor();
+            var product = new Product();
+            var expected = new OperationResult(true, "Test With Address");
+
+            // Act
+            var actual = vendor.PlaceOrder(product, 12, true, false);
+
+            // Assert
+            Assert.AreEqual(expected.Success, actual.Success);
+            Assert.AreEqual(expected.Message, actual.Message);
         }
     }
 }
