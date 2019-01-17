@@ -126,7 +126,7 @@ namespace Acme.Biz.Tests
             var expected = new OperationResult(true, "Test With Address");
 
             // Act
-            var actual = vendor.PlaceOrder(product, 12, true, false);
+            var actual = vendor.PlaceOrder(product, 12, Vendor.IncludeAddress.Yes, Vendor.SendCopy.No);
 
             // Assert
             Assert.AreEqual(expected.Success, actual.Success);

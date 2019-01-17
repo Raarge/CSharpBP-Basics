@@ -1,13 +1,27 @@
 ﻿using Acme.Common;
 using System;
+using System.Net.Mail;
 
 namespace Acme.Biz
 {
     /// <summary>
     /// Manages the vendors from whom we purchase our inventory.
     /// </summary>
-    public class Vendor 
+    public class Vendor
     {
+        public enum IncludeAddress
+        {
+            Yes,
+            No
+        };
+
+        public enum SendCopy
+        {
+            Yes,
+            No
+        };
+
+
         public int VendorId { get; set; }
         public string CompanyName { get; set; }
         public string Email { get; set; }
@@ -152,11 +166,11 @@ namespace Acme.Biz
         /// <param name="includeAddress">True to include the shipping address.</param>
         /// <param name="sendCopy">True to send a copy of the email to the customer.</param>
         /// <returns>Success flag and order text</returns>
-        public OperationResult PlaceOrder(Product product, int quantity, bool includeAddress, bool sendCopy)
+        public OperationResult PlaceOrder(Product product, int quantity, IncludeAddress includeAddress, SendCopy sendCopy)
         {
             var orderText = "Test";
-            if (includeAddress) orderText += " With Address";
-            if (sendCopy) orderText += " With Copy";
+            if (includeAddress == IncludeAddress.Yes) orderText += " With Address";
+            if (sendCopy == SendCopy.Yes) orderText += " With Copy";
 
             var operationResult = new OperationResult(true, orderText);
             return operationResult;
