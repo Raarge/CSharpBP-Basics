@@ -1,5 +1,4 @@
-﻿using Acme.Biz;
-using Acme.Common;
+﻿using Acme.Common;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
@@ -59,7 +58,8 @@ namespace Acme.Biz.Tests
             //Arrange
             var vendor = new Vendor();
             var product = new Product(1, "Saw", "");
-            var expected = new OperationResult(true, "Order from Acme, Inc\r\nProduct: Tools-1\r\nQuantity: 12");
+            var expected = new OperationResult(true, "Order from Acme, Inc\r\nProduct: Tools-1\r\nQuantity: 12" + 
+                                                     "\r\nInstructions: standard delivery");   // added the default standard delivery to the because of optional parameter
 
             //Act
             var actual = vendor.PlaceOrder(product, 12);
@@ -75,10 +75,11 @@ namespace Acme.Biz.Tests
             //Arrange
             var vendor = new Vendor();
             var product = new Product(1, "Saw", "");
-            var expected = new OperationResult(true, "Order from Acme, Inc\r\nProduct: Tools-1\r\nQuantity: 12" + "\r\nDeliver By: 1/15/2019");
+            var expected = new OperationResult(true, "Order from Acme, Inc\r\nProduct: Tools-1\r\nQuantity: 12" + "\r\nDeliver By: 1/18/2019" +
+                                                     "\r\nInstructions: standard delivery");  // added the default standard delivery because of the optional parameter
 
             //Act
-            var actual = vendor.PlaceOrder(product, 12, new DateTimeOffset(2019, 01, 15, 0, 0, 0, new TimeSpan(-7, 0, 0)));
+            var actual = vendor.PlaceOrder(product, 12, new DateTimeOffset(2019, 01, 18, 0, 0, 0, new TimeSpan(-7, 0, 0)));
 
             //Assert
             Assert.AreEqual(expected.Success, actual.Success);
@@ -91,14 +92,27 @@ namespace Acme.Biz.Tests
             //Arrange
             var vendor = new Vendor();
             var product = new Product(1, "Saw", "");
-            var expected = new OperationResult(true, "Order from Acme, Inc\r\nProduct: Tools-1\r\nQuantity: 12" + "\r\nDeliver By: 1/15/2019" + "\r\nInstructions: test");
+            var expected = new OperationResult(true, "Order from Acme, Inc\r\nProduct: Tools-1\r\nQuantity: 12" + "\r\nDeliver By: 1/18/2019" + "\r\nInstructions: test");
 
             //Act
-            var actual = vendor.PlaceOrder(product, 12, new DateTimeOffset(2019, 01, 15, 0, 0, 0, new TimeSpan(-7, 0, 0)), "test");
+            var actual = vendor.PlaceOrder(product, 12, new DateTimeOffset(2019, 01, 18, 0, 0, 0, new TimeSpan(-7, 0, 0)), "test");
 
             //Assert
             Assert.AreEqual(expected.Success, actual.Success);
             Assert.AreEqual(expected.Message, actual.Message);
+        }
+
+        [TestMethod()]
+        public void PlaceOrder_NoDeliveryDate()
+        {
+            //Arrange
+            var vendor = new Vendor();
+            var product = new Product(1, "Saw", "");
+            var expected = new OperationResult(true, "Order from Acme, Inc\r\nProduct: Tools-1\r\nQuantity: 12" +
+                                                     "\r\nInstructions: Deliver to Suite 42");
+
+            //Act
+            var actual = vendor.PlaceOrder(product, 12, instructions: "Deliver to Suite 42");
         }
 
 
