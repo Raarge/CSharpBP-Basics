@@ -188,5 +188,42 @@ namespace Acme.Biz
                                                         this.Email);
             return confirmation;
         }
+
+        public override string ToString()
+        {
+            string vendorInfo = "Vendor: " + this.CompanyName;
+            string result;
+            
+                result = vendorInfo?.ToLower();
+                result = vendorInfo?.ToUpper();
+                result = vendorInfo?.Replace("Vendor", "Supplier");
+
+                var length = vendorInfo?.Length;
+                var index = vendorInfo?.IndexOf(":");
+                var begins = vendorInfo?.StartsWith("Vendor");
+
+            
+
+            return vendorInfo;
+        }
+
+        public string PrepareDirections()
+        {
+            var directions = @"Insert \r\n to define a new line";
+            return directions;
+        }
+
+        public string PrepareDirectionsOnTwoLines()
+        {
+            var directions = "First do this" + Environment.NewLine + "Then do that";
+
+            var directions2 = "First do this\r\nThen do that";
+
+            var directions3 = "first do this " +
+                              "then do that";
+                              
+
+            return directions;
+        }
     }
 }
