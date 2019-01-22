@@ -117,7 +117,11 @@ namespace Acme.Biz
 
         public string ValidationMessage { get; private set; }
 
-        public string ProductCode => this.Category + "-" + this.SequenceNumber;
+        public string ProductCode => $"{this.Category}-{this.SequenceNumber:0000}";  // using string interpolation
+        
+        //public string ProductCode => String.Format("{0}-{1:0000}", this.Category, this.SequenceNumber);
+
+        //public string ProductCode => this.Category + "-" + this.SequenceNumber;
 
         // **** Gives anything creating a product object will have access to the vendor associated with it ****
 

@@ -12,7 +12,7 @@ namespace Acme.Biz.Tests
             //Arrange **** Uses the Setting Properties Technique of Object Initialization *****
             var currentProduct = new Product();
             currentProduct.ProductName = "Saw";
-            currentProduct.ProductId = 1;
+            currentProduct.ProductId = 0001;
             currentProduct.Description = "15-inch steel blade hand saw";
             currentProduct.ProductVendor.CompanyName = "ABC Corp";  // added for always needed related objects 
             var expected = "Hello Saw (1): 15-inch steel blade hand saw" + " Available on: ";
@@ -28,7 +28,7 @@ namespace Acme.Biz.Tests
         public void SayHello_ParameterizedConstructor()
         {
             //Arrange  **** Uses the Parameterized Constructor for Object Initialization ****
-            var currentProduct = new Product(1, "Saw", "15-inch steel blade hand saw");
+            var currentProduct = new Product(0001, "Saw", "15-inch steel blade hand saw");
 
             var expected = "Hello Saw (1): 15-inch steel blade hand saw" + " Available on: ";
 
@@ -45,7 +45,7 @@ namespace Acme.Biz.Tests
             //Arrange **** Uses straight up Object Initialization 
             var currentProduct = new Product  //instead of () we are using { } with the properties given at runtime
             {
-                ProductId = 1,
+                ProductId = 0001,
                 ProductName = "Saw",
                 Description = "15-inch steel blade hand saw"
             };
@@ -107,7 +107,7 @@ namespace Acme.Biz.Tests
         public void MinimumPriceTest_Bulk()
         {
             // Arrange
-            var currentProduct = new Product(1, "Bulk Tools", "");
+            var currentProduct = new Product(0001, "Bulk Tools", "");
             var expected = 9.99m;
 
             // Act
@@ -259,7 +259,7 @@ namespace Acme.Biz.Tests
             //Arrange
             var currentProduct = new Product();
 
-            var expected = "Tools-1";
+            var expected = "Tools-0001";
 
             //Act
             var actual = currentProduct.ProductCode;
