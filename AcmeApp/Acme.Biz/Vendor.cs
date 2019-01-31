@@ -1,5 +1,6 @@
 ﻿using Acme.Common;
 using System;
+using System.Text;
 
 namespace Acme.Biz
 {
@@ -131,19 +132,21 @@ namespace Acme.Biz
             
             var success = false;
 
-            var orderText = "Order from Acme, Inc" + System.Environment.NewLine +
+            var orderTextBuilder = new StringBuilder("Order from Acme, Inc" + System.Environment.NewLine +
                             "Product: " + product.ProductCode + System.Environment.NewLine +
-                            "Quantity: " + quantity;
+                            "Quantity: " + quantity);
 
             if (deliverBy.HasValue)
             {
-                orderText += System.Environment.NewLine + "Deliver By: " + deliverBy.Value.ToString("d");
+                orderTextBuilder.Append(System.Environment.NewLine + "Deliver By: " + deliverBy.Value.ToString("d"));
             }
 
             if (!String.IsNullOrWhiteSpace(instructions))
             {
-                orderText += System.Environment.NewLine + "Instructions: " + instructions;
+                orderTextBuilder.Append( System.Environment.NewLine + "Instructions: " + instructions);
             }
+
+            var orderText = orderTextBuilder.ToString();
 
             var emailService = new EmailService();
             var confirmation = emailService.SendMessage("New Order", orderText, this.Email);
